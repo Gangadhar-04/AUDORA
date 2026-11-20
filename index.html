@@ -1,0 +1,299 @@
+<?php
+session_start();
+$userName = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : "Guest";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Audora</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+<img src="Logo.png">
+<h2>Audora</h2>
+</div>
+
+<div class="library">
+
+<div class="library-header">+
+<h3>Your Library</h3>
+<button>+</button>
+</div>
+
+<div class="playlist-box">
+<p>Create your first playlist</p>
+<button onclick="createPlaylist()">Create Playlist</button>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN AREA -->
+
+<div class="main">
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="header-left">
+
+<div class="home" onclick="goHome()">
+<img src="Audora Home icon.png">
+</div>
+
+<div class="search">
+<img src="Audora search icon.png" onclick="searchSongs()">
+<input type="text" id="searchBar" placeholder="What do you want to play?">
+</div>
+
+</div>
+
+
+<div class="header-right">
+
+<button class="upgrade">Upgrade</button>
+
+<div class="profile" onclick="toggleMenu()">
+<?php echo strtoupper(substr($userName,0,1)); ?>
+</div>
+
+<div class="dropdown" id="dropdown">
+<a href="logout.php">Sign Out</a>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= CHARTS PAGE ================= -->
+
+<div id="chartsPage">
+
+<h2>Charts</h2>
+
+<div class="cards">
+
+<div class="card" onclick="openPlaylist('Top Hits','card1.jpg')">
+<img src="Top Hits.png">
+<p>Top Hits</p>
+</div>
+
+<div class="card" onclick="openPlaylist('Trending','card2.jpg')">
+<img src="Trending.png">
+<p>Trending</p>
+</div>
+
+<div class="card" onclick="openPlaylist('Top India','card3.jpg')">
+<img src="Top India.jpg">
+<p>Top India</p>
+</div>
+
+<div class="card" onclick="openPlaylist('Global','card4.png')">
+<img src="card4.png">
+<p>Global</p>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= PLAYLIST PAGE ================= -->
+
+<div id="playlistPage" style="display:none">
+
+<div class="playlist-header">
+
+<div class="playlist-cover">
+<img src="card4.png" id="playlistImage">
+</div>
+
+<div class="playlist-info">
+
+<small>Public Playlist</small>
+<h1 id="playlistTitle">Playlist</h1>
+<p>“Hear What the World Is Playing.”</p>
+
+</div>
+
+</div>
+
+
+
+<div class="playlist-controls">
+
+<button onclick="backHome()">⬅ Back</button>
+
+</div>
+
+
+
+<!-- SONG TABLE -->
+
+<div class="song-table">
+
+<table>
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Artist</th>
+<th>Duration</th>
+</tr>
+
+</thead>
+
+<tbody>
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= RIGHT VIDEO PLAYER ================= -->
+
+<div class="right-video">
+
+<h3>Now Playing</h3>
+
+<div class="video-box">
+
+<video id="songVideo" muted loop></video>
+
+</div>
+
+<div class="video-song">
+
+<p id="songTitle">Song Name</p>
+<span id="artistName">Artist Name</span>
+
+</div>
+
+<div class="equalizer">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</div>
+
+
+
+<!-- ================= BOTTOM PLAYER ================= -->
+
+<div class="player">
+
+
+<div class="player-left">
+
+<img src="card1.jpg">
+
+<div>
+<p id="mainTitle">Song Name</p>
+<span id="mainArtist">Artist Name</span>
+</div>
+
+<audio id="audioPlayer" autoplay></audio>
+
+</div>
+
+
+
+<div class="player-center">
+
+<div class="controls">
+
+<img src="shuffle-arrows (1).png">
+<img src="back (2).png">
+
+<div class="play">
+<img src="play-button.png">
+</div>
+
+<img src="next.png">
+<img src="repeat.png">
+
+</div>
+
+
+<div class="progress-container">
+
+<span id="currentTime">0:00</span>
+
+<input type="range" id="progressBar" min="0" max="100" value="0">
+
+<span id="totalTime">0:00</span>
+
+
+</div>
+
+</div>
+
+
+
+<div class="player-right">
+
+<img src="volume (1).png">
+
+<input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function toggleMenu(){
+let menu=document.getElementById("dropdown");
+menu.style.display=menu.style.display==="block"?"none":"block";
+}
+
+function backHome(){
+
+document.getElementById("chartsPage").style.display="block";
+document.getElementById("playlistPage").style.display="none";
+
+}
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
